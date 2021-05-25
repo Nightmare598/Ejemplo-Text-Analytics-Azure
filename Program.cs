@@ -20,10 +20,10 @@ namespace TextAnalyticsAzure
             SentimentAnalysisWithOpinionMiningExample(client);
             Console.Write("Presiona una tecla para pasar a la Detección de Lenguaje.");
             Console.ReadKey();
-            /*LanguageDetectionExample(client);
+            LanguageDetectionExample(client);
             Console.Write("Presiona una tecla para pasar al Reconocimiento de Entidades.");
             Console.ReadKey();
-            EntityRecognitionExample(client);
+            /*EntityRecognitionExample(client);
             Console.Write("Presiona una tecla para pasar al Relacionamiento de Entidades.");
             Console.ReadKey();
             EntityLinkingExample(client);
@@ -98,6 +98,14 @@ namespace TextAnalyticsAzure
             }
         }
 
+        static void LanguageDetectionExample(TextAnalyticsClient client)
+        {
+            string texto = "Ce document est rédigé en Français.";
+            DetectedLanguage detectedLanguage = client.DetectLanguage(texto);
+            Console.WriteLine("La oración: " + texto);
+            Console.WriteLine("Está redactada en: ");
+            Console.WriteLine($"\t{detectedLanguage.Name},\tISO-6391: {detectedLanguage.Iso6391Name}\n");
+        }
     }
 
 }
