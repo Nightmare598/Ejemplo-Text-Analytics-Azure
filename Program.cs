@@ -32,10 +32,10 @@ namespace TextAnalyticsAzure
            RecognizePIIExample(client);
             Console.Write("Presiona una tecla para pasar al Reconociemiento de Palabras Clave.");
             Console.ReadKey();
-           /* KeyPhraseExtractionExample(client);
+           KeyPhraseExtractionExample(client);
 
             Console.Write("Presiona una tecla para salir.");
-            Console.ReadKey();*/
+            Console.ReadKey();
 
         }
 
@@ -161,6 +161,20 @@ namespace TextAnalyticsAzure
             else
             {
                 Console.WriteLine("No se encontró ninguna entidad.");
+            }
+        }
+
+        static void KeyPhraseExtractionExample(TextAnalyticsClient client)
+        {
+            var response = client.ExtractKeyPhrases("My cat might need to see a veterinarian.");
+
+            // Printing key phrases
+            Console.WriteLine("");
+            Console.WriteLine("Palabras Clave:");
+
+            foreach (string keyphrase in response.Value)
+            {
+                Console.WriteLine($"\t{keyphrase}");
             }
         }
     }
