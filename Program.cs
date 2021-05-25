@@ -26,10 +26,10 @@ namespace TextAnalyticsAzure
             EntityRecognitionExample(client);
             Console.Write("Presiona una tecla para pasar al Relacionamiento de Entidades.");
             Console.ReadKey();
-            /*EntityLinkingExample(client);
+            EntityLinkingExample(client);
             Console.Write("Presiona una tecla para pasar al Reconocimiento de Información Personal.");
             Console.ReadKey();
-            RecognizePIIExample(client);
+           /* RecognizePIIExample(client);
             Console.Write("Presiona una tecla para pasar al Reconociemiento de Palabras Clave.");
             Console.ReadKey();
             KeyPhraseExtractionExample(client);
@@ -119,6 +119,30 @@ namespace TextAnalyticsAzure
                 Console.WriteLine($"\t\tPuntaje: {entity.ConfidenceScore:F2},\tLongitud: {entity.Length},\tPosición: {entity.Offset}\n");
             }
         }
+
+        static void EntityLinkingExample(TextAnalyticsClient client)
+        {
+            string texto = "Microsoft was founded by Bill Gates and Paul Allen on April 4, 1975, " +
+                "to develop and sell BASIC interpreters for the Altair 8800. " +
+                "During his career at Microsoft, Gates held the positions of chairman, " +
+                "chief executive officer, president and chief software architect, " +
+                "while also being the largest individual shareholder until May 2014.";
+            var response = client.RecognizeLinkedEntities(texto);
+            Console.WriteLine("Entidades Relacionadas:");
+            foreach (var entity in response.Value)
+            {
+                Console.WriteLine($"\tNombre: {entity.Name},\tID: {entity.DataSourceEntityId},\tURL: {entity.Url}\tFuente: {entity.DataSource}");
+                Console.WriteLine("\tCoincidencias:");
+                foreach (var match in entity.Matches)
+                {
+                    Console.WriteLine($"\t\tTexto: {match.Text}");
+                    Console.WriteLine($"\t\tPuntaje de confianza: {match.ConfidenceScore:F2}");
+                    Console.WriteLine($"\t\tLongitud: {match.Length}");
+                    Console.WriteLine($"\t\tPosición en texto: {match.Offset}\n");
+                }
+            }
+        }
+
     }
 
 }
