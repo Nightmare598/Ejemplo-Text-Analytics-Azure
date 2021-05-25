@@ -29,10 +29,10 @@ namespace TextAnalyticsAzure
             EntityLinkingExample(client);
             Console.Write("Presiona una tecla para pasar al Reconocimiento de Información Personal.");
             Console.ReadKey();
-           /* RecognizePIIExample(client);
+           RecognizePIIExample(client);
             Console.Write("Presiona una tecla para pasar al Reconociemiento de Palabras Clave.");
             Console.ReadKey();
-            KeyPhraseExtractionExample(client);
+           /* KeyPhraseExtractionExample(client);
 
             Console.Write("Presiona una tecla para salir.");
             Console.ReadKey();*/
@@ -143,6 +143,26 @@ namespace TextAnalyticsAzure
             }
         }
 
+        static void RecognizePIIExample(TextAnalyticsClient client)
+        {
+            string document = "A developer with SSN 859-98-0987 whose phone number is 800-102-1100 is building tools with our APIs.";
+
+            PiiEntityCollection entities = client.RecognizePiiEntities(document).Value;
+
+            Console.WriteLine($"Texto Redactado: {entities.RedactedText}");
+            if (entities.Count > 0)
+            {
+                Console.WriteLine($"Se reconoció un total de {entities.Count} entida{(entities.Count > 1 ? "des" : "d")} de Información Personal:");
+                foreach (PiiEntity entity in entities)
+                {
+                    Console.WriteLine($"Texto: {entity.Text}, Categoria: {entity.Category}, Sub-Categoria: {entity.SubCategory}, Puntaje de Confianza: {entity.ConfidenceScore}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No se encontró ninguna entidad.");
+            }
+        }
     }
 
 }
