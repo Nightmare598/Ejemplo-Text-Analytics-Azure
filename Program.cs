@@ -1,6 +1,5 @@
 ﻿using Azure;
 using System;
-using System.Globalization;
 using Azure.AI.TextAnalytics;
 using System.Collections.Generic;
 
@@ -69,7 +68,7 @@ namespace TextAnalyticsAzure
 
             foreach (AnalyzeSentimentResult review in reviews)
             {
-                Console.WriteLine($"Sentimiento del Documento: {review.DocumentSentiment.Sentiment}\n");
+                Console.WriteLine($"\tSentimiento del Documento: {review.DocumentSentiment.Sentiment}\n");
                 Console.WriteLine($"\tPuntaje Positivo: {review.DocumentSentiment.ConfidenceScores.Positive:0.00}");
                 Console.WriteLine($"\tPuntaje Negativo: {review.DocumentSentiment.ConfidenceScores.Negative:0.00}");
                 Console.WriteLine($"\tPuntaje Neutro: {review.DocumentSentiment.ConfidenceScores.Neutral:0.00}\n");
@@ -170,7 +169,7 @@ namespace TextAnalyticsAzure
 
             // Printing key phrases
             Console.WriteLine("");
-            Console.WriteLine("Palabras Clave:");
+            Console.WriteLine("Palabras Clave: ");
 
             foreach (string keyphrase in response.Value)
             {
