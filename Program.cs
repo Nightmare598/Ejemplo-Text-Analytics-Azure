@@ -23,10 +23,10 @@ namespace TextAnalyticsAzure
             LanguageDetectionExample(client);
             Console.Write("Presiona una tecla para pasar al Reconocimiento de Entidades.");
             Console.ReadKey();
-            /*EntityRecognitionExample(client);
+            EntityRecognitionExample(client);
             Console.Write("Presiona una tecla para pasar al Relacionamiento de Entidades.");
             Console.ReadKey();
-            EntityLinkingExample(client);
+            /*EntityLinkingExample(client);
             Console.Write("Presiona una tecla para pasar al Reconocimiento de Información Personal.");
             Console.ReadKey();
             RecognizePIIExample(client);
@@ -105,6 +105,19 @@ namespace TextAnalyticsAzure
             Console.WriteLine("La oración: " + texto);
             Console.WriteLine("Está redactada en: ");
             Console.WriteLine($"\t{detectedLanguage.Name},\tISO-6391: {detectedLanguage.Iso6391Name}\n");
+        }
+
+        static void EntityRecognitionExample(TextAnalyticsClient client)
+        {
+            string texto = "I had a wonderful trip to Seattle last week.";
+            var response = client.RecognizeEntities(texto);
+            Console.WriteLine("Texto: " + texto);
+            Console.WriteLine("Entidades nombradas: ");
+            foreach (var entity in response.Value)
+            {
+                Console.WriteLine($"\tTexto: {entity.Text},\tCategoria: {entity.Category},\tSub-Categoria: {entity.SubCategory}");
+                Console.WriteLine($"\t\tPuntaje: {entity.ConfidenceScore:F2},\tLongitud: {entity.Length},\tPosición: {entity.Offset}\n");
+            }
         }
     }
 
